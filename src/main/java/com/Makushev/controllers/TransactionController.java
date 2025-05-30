@@ -1,10 +1,11 @@
 package com.Makushev.controllers;
 
+import com.Makushev.annotations.Cached;
+import com.Makushev.annotations.Metric;
 import com.Makushev.exception.TransactionException;
 import com.Makushev.model.Transaction;
 import com.Makushev.repository.TransactionRepository;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,21 +24,22 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<Transaction> createTransaction(@RequestBody @Valid Transaction transaction) {
-        return ResponseEntity.ok(transactionRepository.save(transaction));
+    public Transaction createTransaction(@RequestBody @Valid Transaction transaction) {
+        return transactionRepository.save(transaction);
     }
 
     @GetMapping
-    public ResponseEntity<List<Transaction>> getAllTransactions() {
-        return ResponseEntity.ok(transactionRepository.findAll());
+    @Cached
+    @Metric
+    public List<Transaction> getAllTransactions() {
+        System.out.println("Import from DB");
+        return transactionRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Transaction> getTransactionById(@PathVariable Long id) throws TransactionException {
-        return ResponseEntity.ok(
-                transactionRepository.findById(id)
-                        .orElseThrow(() -> new TransactionException("Transaction not found with id: " + id))
-        );
+    public Transaction getTransactionById(@PathVariable Long id) throws TransactionException {
+        return transactionRepository.findById(id)
+                .orElseThrow(() -> new TransactionException("Transaction not found with id: " + id));
     }
 
 }
