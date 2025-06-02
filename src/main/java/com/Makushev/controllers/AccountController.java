@@ -39,6 +39,7 @@ public class AccountController {
     @GetMapping
     @Metric
     @Cached
+    @LogDataSourceError
     public List<Account> getAllAccounts() {
         System.out.println("Import from DB");
         return accountRepository.findAll();
