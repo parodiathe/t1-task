@@ -1,12 +1,14 @@
 package com.Makushev.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
 @Table(name = "data_source_error_log")
 public class DataSourceErrorLog {
 
@@ -26,4 +28,7 @@ public class DataSourceErrorLog {
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
+    public DataSourceErrorLog() {
+
+    }
 }

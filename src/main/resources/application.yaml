@@ -1,15 +1,53 @@
 spring:
+  application:
+    name: t1-tesk
+  profiles:
+    active: dev
   datasource:
+<<<<<<< Updated upstream
     url: jdbc:postgresql://localhost:5432/t1_db
     username: postgres
     password: danik22081
     driver-class-name: org.postgresql.Driver
+=======
+    url: jdbc:postgresql://localhost:5432/test_db
+    driverClassName: org.postgresql.Driver
+    username:
+    password:
+>>>>>>> Stashed changes
   jpa:
-    hibernate:
-      ddl-auto: update
-    database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+<<<<<<< Updated upstream
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+=======
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+kafka:
+  bootstrap:
+    server: ${KAFKA_SERVER:localhost:9092}
+  producer:
+    enable: true
+    topic:
+      client-topic: t1_demo_metrics
+      transactions-accept: t1_demo_transaction_accept
+  consumer:
+    group-id: t1-demo
+    max.poll.records: 10
+    session-timeout: 10000
+    heartbeat.interval: 3000
+    topic:
+      transactions-topic: t1_demo_transactions
+
+server:
+  port: 8085
+
+app:
+  data:
+    cache-time-min: 2
+    generator.enabled: false
+  time.limit-ms: 1000
+>>>>>>> Stashed changes
