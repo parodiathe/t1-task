@@ -1,5 +1,6 @@
 package com.Makushev.model;
 
+import com.Makushev.enums.AccountStatus;
 import com.Makushev.enums.AccountType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
@@ -28,5 +29,15 @@ public class Account {
     @Column(nullable = false)
     @DecimalMin(value = "0.00", message = "Balance should not be below 0.00")
     private BigDecimal balance = BigDecimal.ZERO;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AccountStatus accountStatus;
+
+    @Column(nullable = false)
+    private Long accountId;
+
+    @Column(nullable = false)
+    private BigDecimal frozenAmount;
 
 }

@@ -1,5 +1,6 @@
 package com.Makushev.model;
 
+import com.Makushev.enums.TransactionStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -27,5 +28,12 @@ public class Transaction {
 
     @Column(nullable = false)
     private LocalDateTime transactionTime;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus status;
+
+    private Long transactionId;
+
 
 }
